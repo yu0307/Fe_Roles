@@ -33,9 +33,6 @@
     "scripts": {
         "post-install-cmd": [
             "php artisan vendor:publish --provider=\"FeIron\\Fe_Roles\\Fe_RolesServiceProvider\""
-        ],
-        "post-update-cmd": [
-            "php artisan vendor:publish --provider=\"FeIron\\Fe_Roles\\Fe_RolesServiceProvider\" --tag=fe_roles_public --force"
         ]
     }
 }
