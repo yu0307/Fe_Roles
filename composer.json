@@ -1,0 +1,38 @@
+{
+    "name": "feiron/fe_roles",
+    "description": "Role management pkg offers role CRUD,gurds,etc.",
+    "type": "library",
+    "license": "Apache-2.0",
+    "require": {
+        "php": "^7.2.1",
+        "laravel/framework": "5.8.*"
+    },
+    "require-dev": {
+        "php": "^7.2.1",
+        "laravel/framework": "5.8.*"
+    },
+    "authors": [
+        {
+            "name": "Lucas F. Lu",
+            "email": "yu0307@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "FeIron\\Fe_Login\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "FeIron\\Fe_Roles\\Fe_RolesServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "php artisan vendor:publish --provider=\"FeIron\\Fe_Roles\\Fe_RolesServiceProvider\""
+        ]
+    }
+}
