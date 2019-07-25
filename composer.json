@@ -29,12 +29,5 @@
                 "FeIron\\Fe_Roles\\Fe_RolesServiceProvider"
             ]
         }
-    },
-    "scripts": {
-        "post-install-cmd": [
-            "php artisan vendor:publish --provider=\"FeIron\\Fe_Roles\\Fe_RolesServiceProvider\"",
-            "php artisan migrate --path=\"FeIron\\Fe_Roles\\database\\migrations\"",
-            "php artisan db:seed --class=FeIron\\Fe_Roles\\database\\seeder\\RoleSeeder"
-        ]
     }
 }
