@@ -20,7 +20,7 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "FeIron\\Fe_Login\\": "src/"
+            "FeIron\\Fe_Roles\\": "src/"
         }
     },
     "extra": {
