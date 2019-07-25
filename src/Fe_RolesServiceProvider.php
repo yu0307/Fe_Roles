@@ -1,8 +1,10 @@
 <?php
     namespace FeIron\Fe_Roles;
     use Illuminate\Support\ServiceProvider;
+    // use Illuminate\Http\Request;
+    // use Illuminate\Support\Facades\Auth;
 
-    class Fe_LoginServiceProvider extends ServiceProvider{
+    class Fe_RolesServiceProvider extends ServiceProvider{
         public function boot(){
             //locading package route files
             $this->loadRoutesFrom(__DIR__.'/routes/web.php');
@@ -13,6 +15,11 @@
             $this->publishes([
                 __DIR__ . '/config' => config_path('Fe_Roles'),
             ],'fe_roles_config');
+
+            // $this->registerPolicies();
+            // Auth::viaRequest('CheckRoles', function ($request) {
+            //     return User::where('token', $request->token)->first();
+            // });
         }
 
         public function register(){
@@ -21,5 +28,14 @@
                 __DIR__ . '/config/appconfig.php',
                 'fe_roles_appconfig'
             );
+
+            config(['auth.guards.RoleCheck' => [
+                'driver' => 'session',
+                'provider'=>'RoleChecker'
+            ]]);
+            config(['auth.providers.RoleChecker' => [
+                'driver' => 'eloquent',
+                'model' => 'TBD'
+            ]]);                                    
         }
     }
