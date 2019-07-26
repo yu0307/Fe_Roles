@@ -20,12 +20,4 @@ class fe_abilities_targets extends Model
     {
         $this->userModel = config('fe_roles_appconfig.target_user_model') ?? 'App\User';
     }
-
-    /**
-     * Get the owning target_type model.
-     */
-    public function target()
-    {
-        return $this->morphTo();
-    }
 }

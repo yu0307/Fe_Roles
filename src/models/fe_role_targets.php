@@ -19,20 +19,5 @@ class fe_role_targets extends Model
     public function __construct(){
         $this->userModel= config('fe_roles_appconfig.target_user_model')?? 'App\User';
     }
-
-    public function fromUser(){
-        return $this->belongsTo($this->userModel,(config('fe_roles_appconfig.primary_Key') ?? 'id'), 'target_id');
-    }
-
-    public function Roles(){
-        return $this->belongsTo('fe_roles', 'role_id','id');
-    }
-
-    /**
-     * Get the owning target_type model.
-     */
-    public function target()
-    {
-        return $this->morphTo();
-    }
+    
 }
