@@ -29,13 +29,13 @@
                 'fe_roles_appconfig'
             );
 
-            config(['auth.guards.RoleCheck' => [
-                'driver' => 'session',
-                'provider'=>'RoleChecker'
-            ]]);
-            config(['auth.providers.RoleChecker' => [
-                'driver' => 'eloquent',
-                'model' => 'TBD'
-            ]]);                                    
+            // config(['auth.guards.RoleCheck' => [
+            //     'driver' => 'session',
+            //     'provider'=>'RoleChecker'
+            // ]]);
+            // config(['auth.providers.RoleChecker' => [
+            //     'driver' => 'eloquent',
+            //     'model' => 'TBD'
+            // ]]);                                    
         }
     }

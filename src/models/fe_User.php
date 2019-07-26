@@ -6,25 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class fe_User extends Model
 {
-    protected $table = 'users';
-    protected $userModel;
+    protected $table = 'users2';
 
-    //config('fe_roles_appconfig.target_user_model') typed $user
-    public function __construct($user=null)
+    public function Roles()
     {
-        // $this->userModel = config('fe_roles_appconfig.target_user_model') ?? 'App\User';
-        // if(isset($this->userModel) && class_exists($this->userModel) ){
-        if(isset($user)){
-            $this->setTable($user->getTable());
-            $this->userModel = $user;
-        }else{
-            $this->userModel = config('fe_roles_appconfig.target_user_model') ?? 'App\User';
-            
-        }
-                
-        // }
-    }
+        $this->setTable(config('Fe_Roles.appconfig.target_user_model') ?? 'users');
+        $this->setKeyName((config('fe_roles_appconfig.primary_Key') ?? 'id'));
 
-    
+        //morphToMany(string $related, string $name, string $table = null, string $foreignPivotKey = null, string $relatedPivotKey = null, string $parentKey = null, string $relatedKey = null, bool $inverse = false)
+        return $this->morphToMany('FeIron\Fe_Roles\models\fe_roles', 'target','fe_role_targets','role_id','id');
+    }
     
 }
