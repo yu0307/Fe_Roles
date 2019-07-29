@@ -18,8 +18,8 @@ class fe_roles extends Model
 
     public function user()
     {
-        //morphedByMany(string $related, string $name, string $table = null, string $foreignPivotKey = null, string $relatedPivotKey = null, string $parentKey = null, string $relatedKey = null)
-        return $this->morphedByMany(config('Fe_Roles.appconfig.target_user_model')??'App\User', 'target','fe_role_targets','role_id');
+        // (string $related, string $name, string $table = null, string $foreignKey = null, string $otherKey = null, bool $inverse = false)
+        return $this->morphedByMany('FeIron\Fe_Roles\models\fe_User', 'target','fe_role_targets','role_id','target_id');
     }
     
 }

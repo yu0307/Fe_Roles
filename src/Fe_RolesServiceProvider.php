@@ -34,12 +34,13 @@
                 'fe_roles_appconfig'
             );
 
-            // config(['auth.guards.web.provider' => 'fe_users']);
-            // config([
-            //     'auth.providers.fe_users' => [
-            //         'driver' => 'eloquent',
-            //         'model' => \FeIron\Fe_Login\models\fe_users::class,
-            //     ]
-            // ]);                                 
+            // instruct the system to use fe_users when authenticating.
+            config(['auth.guards.web.provider' => 'fe_Role_User']);
+            config([
+                'auth.providers.fe_Role_User' => [
+                    'driver' => 'eloquent',
+                    'model' => \FeIron\Fe_Roles\models\fe_User::class,
+                ]
+            ]);                               
         }
     }
