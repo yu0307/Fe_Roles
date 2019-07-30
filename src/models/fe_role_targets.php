@@ -2,9 +2,9 @@
 
 namespace FeIron\Fe_Roles\models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphPivot;
 
-class fe_role_targets extends Model
+class fe_role_targets extends MorphPivot
 {
 
     protected $table = 'fe_role_targets';
@@ -13,11 +13,22 @@ class fe_role_targets extends Model
     protected $attributes = [
         'disabled' => false,
     ];
-    protected $userModel='App\User';
     protected $fillable = ['role_id', 'target_id', 'target_type', 'disabled'];
 
-    public function __construct(){
-        $this->userModel= config('Fe_Roles.appconfig.target_user_model')?? 'App\User';
+    public function user()
+    {
+        // return $this->belongsTo('FeIron\Fe_Roles\models\fe_User');
+        return $this->morphedByMany('FeIron\Fe_Roles\models\fe_User', 'target', 'fe_role_targets', 'role_id', 'target_id');
+    }
+
+    public function roles()
+    {
+        return $this->belongsTo('FeIron\Fe_Roles\models\fe_roles', 'role_id');
+    }
+
+    public function abilities()
+    {
+        return $this->hasManyThrough('FeIron\Fe_Roles\models\fe_abilities', 'FeIron\Fe_Roles\models\fe_roles');
     }
     
 }

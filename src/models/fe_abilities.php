@@ -16,6 +16,8 @@ class fe_abilities extends Model
         return $this->belongsToMany('FeIron\Fe_Roles\models\fe_roles', 'fe_role_abilities', 'ability_id', 'role_id');
     }
 
+    
+
     public function user()
     {
         //morphedByMany(string $related, string $name, string $table = null, string $foreignPivotKey = null, string $relatedPivotKey = null, string $parentKey = null, string $relatedKey = null)

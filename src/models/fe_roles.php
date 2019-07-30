@@ -12,14 +12,14 @@ class fe_roles extends Model
     ];
     protected $fillable = ['name', 'description','rank', 'disabled'];
 
-    public function hasAbilities(){
+    public function RoleAbilities(){
         return $this->belongsToMany('FeIron\Fe_Roles\models\fe_abilities', 'fe_role_abilities', 'role_id', 'ability_id');
     }
 
-    public function user()
+    public function User()
     {
         // (string $related, string $name, string $table = null, string $foreignKey = null, string $otherKey = null, bool $inverse = false)
         return $this->morphedByMany('FeIron\Fe_Roles\models\fe_User', 'target','fe_role_targets','role_id','target_id');
     }
-    
+
 }

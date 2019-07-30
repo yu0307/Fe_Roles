@@ -1,7 +1,11 @@
 <?php
 Route::group(['namespace' => 'FeIron\Fe_Roles\Http\Controllers', 'middleware' => ['web']], function () {
     Route::get('testGuard',function(){
-        dd(Auth::user()->roles()->first());
+        // dd(
+        //     FeIron\Fe_Roles\models\fe_roles::all()->RoleAbilities()->get()
+        // );
+        dd(
+            FeIron\Fe_Roles\models\fe_User::find(1)->RoleAbilities());
         // dd(get_class(Auth::user()));
         // dd(Config::get('auth'));
         // FeIron\Fe_Roles\models\fe_roles::find(1)->user()->first();
