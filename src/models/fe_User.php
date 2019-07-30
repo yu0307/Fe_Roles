@@ -12,32 +12,15 @@ class fe_User extends \FeIron\Fe_Login\models\fe_users
         }
 
         public function abilities(){
-
-        }
-
-        public function rb(){
-            return $this->load('Roles.Abilities');
+            return $this->load('Roles')->Roles->map(function($role){
+                return $role->Abilities();
+            })->flatten()->pluck('name','id');
         }
 
         public function RoleAbilities(){
-            
-            return $abilities= $this->load('Roles.Abilities')->Roles->map(function($role){
-                return $role->Abilities;
+            return $this->load('Roles.RankAbilities')->Roles->map(function($role){
+                return $role->RankAbilities;
             })->flatten()->pluck('name','id');
-
-            $abilities->each;
-            // return $this->load('Roles.Abilities')->Roles->map(function($role){
-            //     return $role->Abilities->pluck('name','id')->all();
-            // });
-
-
-            // return $this->load('Roles.Abilities');
-            // return array_map(
-            //                 function($role){
-            //                     return $role->Abilities;
-            //                 },
-            //                 $this->load('Roles.Abilities')->Roles->all()
-            //                 );
         }
 
 }
