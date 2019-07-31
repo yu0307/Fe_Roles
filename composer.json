@@ -36,10 +36,6 @@
             "php ../../../artisan migrate --path=\"FeIron\\Fe_Roles\\database\\migrations\"",
             "php ../../../artisan db:seed --class=FeIron\\Fe_Roles\\database\\seeder\\RoleSeeder",
             "php ../../../artisan Build:BuildUserClass"
-        ],
-        "test":[
-            "echo 'this is cool!!!!'",
-            "php ../../../artisan Build:BuildUserClass"
         ]
     }
 }
