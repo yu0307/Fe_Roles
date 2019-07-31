@@ -13,11 +13,5 @@ class fe_abilities_targets extends Model
     protected $attributes = [
         'disabled' => false,
     ];
-    protected $userModel = 'App\User';
     protected $fillable = ['ability_id', 'target_id', 'target_type', 'disabled'];
-
-    public function __construct()
-    {
-        $this->userModel = config('fe_roles_appconfig.target_user_model') ?? 'App\User';
-    }
 }

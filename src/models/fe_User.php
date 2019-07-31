@@ -3,31 +3,79 @@
 namespace FeIron\Fe_Roles\models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use FeIron\Fe_Roles\models\fe_user_traits;
 
-class fe_User extends \FeIron\Fe_Login\models\fe_users
+class fe_User 
+extends  \FeIron\Fe_Login\models\fe_users
+implements AuthenticatableContract
 {
-        // (string $related, string $name, string $table = null, string $foreignKey = null, string $otherKey = null)
-        public function Roles(){
-            return $this->morphToMany('FeIron\Fe_Roles\models\fe_roles', 'target','fe_role_targets','target_id','role_id');
-        }
+    use fe_user_traits;
 
-        public function abilities(){
-            return $this->load('Roles')->Roles->map(function($role){
-                return $role->Abilities();
-            })->flatten()->pluck('name','id');
-        }
+    private $userNameField='id';
+    private $userPasswordField = 'password';
+    protected $rememberTokenName= 'remember_token';
+    private $usrName;
+    private $usrPass;
+    private $token;
 
-        public function RoleAbilities(){
-            return $this->load('Roles.RankAbilities')->Roles->map(function($role){
-                return $role->RankAbilities;
-            })->flatten()->pluck('name','id');
-        }
-
-    public function none_role_abilities()
+    public function __construct()
     {
-        return $this->morphToMany('FeIron\Fe_Roles\models\fe_abilities', 'target', 'fe_abilities_targets', 'target_id', 'ability_id')
-                    ->get()
-                    ->pluck('name', 'id')
+        $this->userNameField=(config('Fe_Roles.appconfig.user_name_field')?? $this->userNameField);
+        $this->userPasswordField = (config('Fe_Roles.appconfig.user_password_field') ?? $this->userPasswordField);
+        $this->rememberTokenName = (config('Fe_Roles.appconfig.user_remember_token_field') ?? $this->rememberTokenName);
     }
-                    ->all();
+
+    /**
+     * Fetch user by Credentials
+     *
+     * @param array $credentials
+     * @return Illuminate\Contracts\Auth\Authenticatable
+     */
+    public function fetchUserByCredentials(array $credentials)
+    {
+        return $this->where([ $this->userNameField => $credentials[$this->userNameField]])->first();
+    }
+
+    /**
+     * Fetch user by Token
+     *
+     * @param array $Token
+     * @return Illuminate\Contracts\Auth\Authenticatable
+     */
+    public function fetchUserByToken($identifier,$Token)
+    {
+        return  $this->where([$this->getAuthIdentifierName() => $identifier,$this->getRememberTokenName()=> $Token])->first();
+    }
+
+    public function getAuthIdentifierName()
+    {
+        return $this->userNameField;
+    }
+
+    public function getAuthIdentifier()
+    {
+        return $this->usrName;
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->usrPass;
+    }
+
+    public function getRememberTokenName()
+    {
+        return $this->rememberTokenName;
+    }
+
+    public function setRememberToken($value)
+    {
+        $this->token = $value;
+    }
+
+    public function getRememberToken()
+    {
+        return $this->token;
+    }
 }

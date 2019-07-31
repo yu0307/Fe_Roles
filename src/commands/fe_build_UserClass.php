@@ -39,10 +39,10 @@ class fe_build_UserClass extends Command
     public function handle()
     {
         $file=dirname(__DIR__, 1) . '/models/fe_User.php';
-        file_put_contents($file, 
-                str_replace(
-                    'extends Model',
-                    ('extends \\' . ltrim(Config::get('auth.providers.' . Config::get('auth.guards.' . Config::get('auth.defaults.guard') . '.provider') . '.model'), "\\")),
+        file_put_contents($file,
+                preg_replace(
+                    '/(extends\s)[\w\\\\]*((?>\r\n|\n|\r)implements)/i',
+                    '${1} \\' . (ltrim(Config::get('auth.providers.' . Config::get('auth.guards.' . Config::get('auth.defaults.guard') . '.provider') . '.model'), "\\")) . '${2}',
                     file_get_contents($file)
                 )
             );

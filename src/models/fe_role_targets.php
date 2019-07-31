@@ -13,22 +13,5 @@ class fe_role_targets extends MorphPivot
     protected $attributes = [
         'disabled' => false,
     ];
-    protected $fillable = ['role_id', 'target_id', 'target_type', 'disabled'];
-
-    public function user()
-    {
-        // return $this->belongsTo('FeIron\Fe_Roles\models\fe_User');
-        return $this->morphedByMany('FeIron\Fe_Roles\models\fe_User', 'target', 'fe_role_targets', 'role_id', 'target_id');
-    }
-
-    public function roles()
-    {
-        return $this->belongsTo('FeIron\Fe_Roles\models\fe_roles', 'role_id');
-    }
-
-    public function abilities()
-    {
-        return $this->hasManyThrough('FeIron\Fe_Roles\models\fe_abilities', 'FeIron\Fe_Roles\models\fe_roles');
-    }
-    
+    protected $fillable = ['role_id', 'target_id', 'target_type', 'disabled'];    
 }

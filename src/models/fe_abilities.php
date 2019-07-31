@@ -12,11 +12,9 @@ class fe_abilities extends Model
     ];
     protected $fillable = ['name', 'description', 'disabled'];
 
-    public function fromRole(){
+    public function inRole(){
         return $this->belongsToMany('FeIron\Fe_Roles\models\fe_roles', 'fe_role_abilities', 'ability_id', 'role_id');
     }
-
-    
 
     public function user()
     {
