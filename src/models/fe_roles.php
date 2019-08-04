@@ -33,4 +33,8 @@ class fe_roles extends Model
         return $this->morphedByMany('FeIron\Fe_Roles\models\fe_User', 'target','fe_role_targets','role_id','target_id');
     }
 
+    public static function RoleUsers($Role){
+        return fe_roles::where('name',$Role)->first()->User->pluck('id','name')->toArray();
+    }
+
 }
