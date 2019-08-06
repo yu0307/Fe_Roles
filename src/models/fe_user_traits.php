@@ -26,5 +26,13 @@ trait fe_user_traits{
             ->get()
             ->pluck('name', 'id');
     }
+
+    public function HasRole($roleName){
+        return $this->Roles->pluck('name')->contains($roleName);
+    }
+
+    public function UserCan($abilityName){
+        return $this->abilities()->contains($abilityName);
+    }
 }
 ?>
