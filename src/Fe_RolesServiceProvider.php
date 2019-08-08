@@ -1,8 +1,7 @@
 <?php
     namespace feiron\fe_roles;
     use Illuminate\Support\ServiceProvider;
-    // use Illuminate\Http\Request;
-    use Illuminate\Support\Facades\Auth;
+    // use Illuminate\Support\Facades\Auth;
 
 class Fe_RolesServiceProvider extends ServiceProvider{
     public function boot(){
@@ -18,7 +17,7 @@ class Fe_RolesServiceProvider extends ServiceProvider{
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                commands\fe_build_UserClass::class
+                commands\fe_BuildUserClass::class
             ]);
         }
 

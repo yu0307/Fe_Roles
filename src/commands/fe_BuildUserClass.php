@@ -5,7 +5,7 @@ namespace feiron\fe_roles\commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
 
-class fe_build_UserClass extends Command
+class fe_BuildUserClass extends Command
 {
     /**
      * The name and signature of the console command.
