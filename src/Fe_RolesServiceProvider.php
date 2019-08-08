@@ -1,5 +1,5 @@
 <?php
-    namespace FeIron\Fe_Roles;
+    namespace \fe_roles;
     use Illuminate\Support\ServiceProvider;
     // use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
@@ -13,7 +13,7 @@ class Fe_RolesServiceProvider extends ServiceProvider{
 
         //set the publishing target path for config files. Run only during update and installation of the package. see composer.json of the package.
         $this->publishes([
-            __DIR__ . '/config' => config_path('Fe_Roles'),
+            __DIR__ . '/config' => config_path('fe_roles'),
         ],'fe_roles_config');
 
         if ($this->app->runningInConsole()) {
@@ -22,14 +22,14 @@ class Fe_RolesServiceProvider extends ServiceProvider{
             ]);
         }
 
-        // $this->app->bind('FeIron\Fe_Roles\models\fe_User', function ($app) {
-        //     return new FeIron\Fe_Roles\models\fe_User();
+        // $this->app->bind('\fe_roles\models\fe_User', function ($app) {
+        //     return new \fe_roles\models\fe_User();
         // });
         
 
         //registering and using custom user provider
         // Auth::provider('fe_user_provider', function ($app, array $config) {
-        //     return new FeIron\Fe_Roles\models\fe_user_provider($app->make('FeIron\Fe_Roles\models\fe_User'));
+        //     return new \fe_roles\models\fe_user_provider($app->make('\fe_roles\models\fe_User'));
         // });
 
 
@@ -57,7 +57,7 @@ class Fe_RolesServiceProvider extends ServiceProvider{
         config([
             'auth.providers.fe_Role_User' => [
                 'driver' => 'eloquent',
-                'model' => (config('fe_roles_appconfig.usr_provider') ? config('fe_roles_appconfig.usr_provider') : (\FeIron\Fe_Roles\models\fe_User::class)),
+                'model' => (config('fe_roles_appconfig.usr_provider') ? config('fe_roles_appconfig.usr_provider') : (\\fe_roles\models\fe_User::class)),
             ]
         ]);                 
     }

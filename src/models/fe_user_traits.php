@@ -1,11 +1,11 @@
 <?php
-namespace FeIron\Fe_Roles\models;
+namespace \fe_roles\models;
 
 trait fe_user_traits{
     // (string $related, string $name, string $table = null, string $foreignKey = null, string $otherKey = null)
     public function Roles()
     {
-        return $this->morphToMany('FeIron\Fe_Roles\models\fe_roles', 'target', 'fe_role_targets', 'target_id', 'role_id');
+        return $this->morphToMany('\fe_roles\models\fe_roles', 'target', 'fe_role_targets', 'target_id', 'role_id');
     }
 
     public function abilities()
@@ -22,7 +22,7 @@ trait fe_user_traits{
 
     public function None_Role_Abilities()
     {
-        return $this->morphToMany('FeIron\Fe_Roles\models\fe_abilities', 'target', 'fe_abilities_targets', 'target_id', 'ability_id')
+        return $this->morphToMany('\fe_roles\models\fe_abilities', 'target', 'fe_abilities_targets', 'target_id', 'ability_id')
             ->get()
             ->pluck('name', 'id');
     }

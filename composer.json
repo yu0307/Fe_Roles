@@ -20,13 +20,13 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "FeIron\\Fe_Roles\\": "src/"
+            "feiron\\fe_roles\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "FeIron\\Fe_Roles\\Fe_RolesServiceProvider"
+                "feiron\\fe_roles\\Fe_RolesServiceProvider"
             ]
         }
     },

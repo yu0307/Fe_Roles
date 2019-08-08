@@ -1,14 +1,14 @@
 <?php
 
-namespace FeIron\Fe_Roles\models;
+namespace \fe_roles\models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use FeIron\Fe_Roles\models\fe_user_traits;
+use \fe_roles\models\fe_user_traits;
 
 class fe_User 
-extends  \FeIron\Fe_Login\models\fe_users
+extends  \feiron\fe_login\models\fe_users
 implements AuthenticatableContract
 {
     use fe_user_traits;
@@ -22,9 +22,9 @@ implements AuthenticatableContract
 
     public function __construct()
     {
-        $this->userNameField=(config('Fe_Roles.appconfig.user_name_field')?? $this->userNameField);
-        $this->userPasswordField = (config('Fe_Roles.appconfig.user_password_field') ?? $this->userPasswordField);
-        $this->rememberTokenName = (config('Fe_Roles.appconfig.user_remember_token_field') ?? $this->rememberTokenName);
+        $this->userNameField=(config('fe_roles.appconfig.user_name_field')?? $this->userNameField);
+        $this->userPasswordField = (config('fe_roles.appconfig.user_password_field') ?? $this->userPasswordField);
+        $this->rememberTokenName = (config('fe_roles.appconfig.user_remember_token_field') ?? $this->rememberTokenName);
     }
 
     /**

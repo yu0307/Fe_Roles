@@ -1,5 +1,5 @@
 <?php
-namespace FeIron\Fe_Roles\models;
+namespace \fe_roles\models;
 
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -20,9 +20,9 @@ class fe_user_provider implements UserProvider
     public function __construct(Illuminate\Contracts\Auth\Authenticatable $userModel)
     {
         $this->usrModel = $userModel;
-        $this->userNameField = (config('Fe_Roles.appconfig.user_name_field') ?? $this->userNameField);
-        $this->userPasswordField = (config('Fe_Roles.appconfig.user_password_field') ?? $this->userPasswordField);
-        $this->rememberTokenName = (config('Fe_Roles.appconfig.user_remember_token_field') ?? $this->rememberTokenName);
+        $this->userNameField = (config('fe_roles.appconfig.user_name_field') ?? $this->userNameField);
+        $this->userPasswordField = (config('fe_roles.appconfig.user_password_field') ?? $this->userPasswordField);
+        $this->rememberTokenName = (config('fe_roles.appconfig.user_remember_token_field') ?? $this->rememberTokenName);
     }
 
     /**

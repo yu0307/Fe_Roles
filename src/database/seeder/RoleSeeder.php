@@ -1,6 +1,6 @@
 <?php
 
-namespace FeIron\Fe_Roles\database\seeder;
+namespace \fe_roles\database\seeder;
 use Illuminate\Database\Seeder;
 
 class RoleSeeder extends Seeder

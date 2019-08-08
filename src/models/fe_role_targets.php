@@ -1,6 +1,6 @@
 <?php
 
-namespace FeIron\Fe_Roles\models;
+namespace \fe_roles\models;
 
 use Illuminate\Database\Eloquent\Relations\MorphPivot;
 

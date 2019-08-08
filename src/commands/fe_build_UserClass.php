@@ -1,6 +1,6 @@
 <?php
 
-namespace FeIron\Fe_Roles\commands;
+namespace \fe_roles\commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
@@ -19,7 +19,7 @@ class fe_build_UserClass extends Command
      *
      * @var string
      */
-    protected $description = 'Used by Fe_Roles to build a user model that extends the current provider model.';
+    protected $description = 'Used by fe_roles to build a user model that extends the current provider model.';
 
     /**
      * Create a new command instance.
