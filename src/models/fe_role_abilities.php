@@ -1,6 +1,6 @@
 <?php
 
-namespace \fe_roles\models;
+namespace feiron\fe_roles\models;
 
 use Illuminate\Database\Eloquent\Model;
 

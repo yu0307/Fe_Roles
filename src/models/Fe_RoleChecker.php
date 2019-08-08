@@ -1,5 +1,5 @@
 <?php
-namespace \fe_roles\models;
+namespace feiron\fe_roles\models;
 
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;    
 

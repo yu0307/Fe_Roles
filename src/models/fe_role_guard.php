@@ -1,6 +1,6 @@
 <?php
 
-namespace \fe_roles\models;
+namespace feiron\fe_roles\models;
 
 class fe_role_guard 
 extends \Illuminate\Auth\SessionGuard

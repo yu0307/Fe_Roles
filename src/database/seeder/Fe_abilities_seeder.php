@@ -1,6 +1,6 @@
 <?php
 
-namespace \fe_roles\database\seeder;
+namespace feiron\fe_roles\database\seeder;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;

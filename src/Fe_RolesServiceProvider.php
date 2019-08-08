@@ -1,5 +1,5 @@
 <?php
-    namespace \fe_roles;
+    namespace feiron\fe_roles;
     use Illuminate\Support\ServiceProvider;
     // use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
@@ -57,7 +57,7 @@ class Fe_RolesServiceProvider extends ServiceProvider{
         config([
             'auth.providers.fe_Role_User' => [
                 'driver' => 'eloquent',
-                'model' => (config('fe_roles_appconfig.usr_provider') ? config('fe_roles_appconfig.usr_provider') : (\\fe_roles\models\fe_User::class)),
+                'model' => (config('fe_roles_appconfig.usr_provider') ? config('fe_roles_appconfig.usr_provider') : (\feiron\fe_roles\models\fe_User::class)),
             ]
         ]);                 
     }

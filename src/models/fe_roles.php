@@ -1,6 +1,6 @@
 <?php
 
-namespace \fe_roles\models;
+namespace feiron\fe_roles\models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,7 +13,7 @@ class fe_roles extends Model
     protected $fillable = ['name', 'description','rank', 'disabled'];
 
     public function RoleAbilities(){
-        return $this->belongsToMany('\fe_roles\models\fe_abilities', 'fe_role_abilities', 'role_id', 'ability_id');
+        return $this->belongsToMany('\feiron\fe_roles\models\fe_abilities', 'fe_role_abilities', 'role_id', 'ability_id');
     }
 
     public function withAbilities(){
@@ -30,7 +30,7 @@ class fe_roles extends Model
     public function User()
     {
         // (string $related, string $name, string $table = null, string $foreignKey = null, string $otherKey = null, bool $inverse = false)
-        return $this->morphedByMany('\fe_roles\models\fe_User', 'target','fe_role_targets','role_id','target_id');
+        return $this->morphedByMany('\feiron\fe_roles\models\fe_User', 'target','fe_role_targets','role_id','target_id');
     }
 
     public static function RoleUsers($Role){

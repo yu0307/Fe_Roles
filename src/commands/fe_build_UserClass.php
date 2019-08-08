@@ -1,6 +1,6 @@
 <?php
 
-namespace \fe_roles\commands;
+namespace feiron\fe_roles\commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
