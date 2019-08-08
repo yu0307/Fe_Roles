@@ -22,7 +22,7 @@ implements AuthenticatableContract
 
     public function __construct()
     {
-        $this->userNameField=(config('fe_roles.appconfig.user_name_field')?? $this->userNameField);
+        $this->userNameField = ((config('fe_roles.appconfig.user_name_field') ?? false) ? config('fe_roles.appconfig.user_name_field') : $this->userNameField);
         $this->userPasswordField = (config('fe_roles.appconfig.user_password_field') ?? $this->userPasswordField);
         $this->rememberTokenName = (config('fe_roles.appconfig.user_remember_token_field') ?? $this->rememberTokenName);
     }
