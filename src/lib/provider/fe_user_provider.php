@@ -1,5 +1,5 @@
 <?php
-namespace feiron\fe_roles\models;
+namespace feiron\fe_roles\lib\provider;
 
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Auth\Authenticatable;

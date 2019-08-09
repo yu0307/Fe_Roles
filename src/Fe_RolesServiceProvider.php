@@ -1,7 +1,9 @@
 <?php
-    namespace feiron\fe_roles;
-    use Illuminate\Support\ServiceProvider;
-    // use Illuminate\Support\Facades\Auth;
+
+namespace feiron\fe_roles;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Route;
+use feiron\fe_roles\lib\traits\fe_user_traitMixin;
 
 class Fe_RolesServiceProvider extends ServiceProvider{
     public function boot(){
@@ -20,10 +22,16 @@ class Fe_RolesServiceProvider extends ServiceProvider{
                 commands\fe_BuildUserClass::class
             ]);
         }
+        config('auth.providers.' . config('auth.guards.web.provider') . '.model')::mixin(new fe_user_traitMixin);
 
-        // $this->app->bind('\fe_roles\models\fe_User', function ($app) {
-        //     return new \fe_roles\models\fe_User();
+        Route::aliasMiddleware('ProtectByRoles', lib\middleware\ProtectByRoles::class);
+
+        //registering guards and providers ONLY when Authentication is needed. 
+        // $this->app->resolving('auth', function ($auth) {
+
         // });
+
+        
         
 
         //registering and using custom user provider
@@ -44,20 +52,25 @@ class Fe_RolesServiceProvider extends ServiceProvider{
     }
 
     public function register(){
+        
         //append package config files to global pool for users to customize
         $this->mergeConfigFrom(
             __DIR__ . '/config/appconfig.php',
             'fe_roles_appconfig'
         );
 
+        // $this->app->bind('ProtectByRoles', function ($app) {
+        //     return new feiron\fe_roles\lib\middleware\ProtectByRoles();
+        // });
+
         // instruct the system to use fe_users when authenticating.
         // config(['auth.guards.fe_Roles' => ['driver'=> 'session','provider'=>'fe_Role_User']]);
-        config(['auth.guards.web.provider' => 'fe_Role_User']);
-        config([
-            'auth.providers.fe_Role_User' => [
-                'driver' => 'eloquent',
-                'model' => (config('fe_roles_appconfig.usr_provider') ? config('fe_roles_appconfig.usr_provider') : (\feiron\fe_roles\models\fe_User::class)),
-            ]
-        ]);                 
+        // config(['auth.guards.web.provider' => 'fe_Role_User']);
+        // config([
+        //     'auth.providers.fe_Role_User' => [
+        //         'driver' => 'eloquent',
+        //         'model' => (config('fe_roles_appconfig.usr_provider') ? config('fe_roles_appconfig.usr_provider') : (\feiron\fe_roles\models\fe_User::class)),
+        //     ]
+        // ]);                 
     }
 }

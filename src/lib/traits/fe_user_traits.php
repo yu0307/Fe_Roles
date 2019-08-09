@@ -1,5 +1,5 @@
 <?php
-namespace feiron\fe_roles\models;
+namespace feiron\fe_roles\lib\traits;
 
 trait fe_user_traits{
     // (string $related, string $name, string $table = null, string $foreignKey = null, string $otherKey = null)
