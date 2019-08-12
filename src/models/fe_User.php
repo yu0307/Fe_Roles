@@ -5,7 +5,7 @@ namespace feiron\fe_roles\models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
-use feiron\fe_roles\models\fe_user_traits;
+use feiron\fe_roles\lib\traits\fe_user_traits;
 
 class fe_User 
 extends  \feiron\fe_login\models\fe_users

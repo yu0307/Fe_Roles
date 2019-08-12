@@ -1,5 +1,5 @@
 <?php
-namespace feiron\fe_roles\models;
+namespace feiron\fe_roles\lib\traits;
 
 trait fe_user_traits{
     // (string $related, string $name, string $table = null, string $foreignKey = null, string $otherKey = null)
@@ -27,12 +27,18 @@ trait fe_user_traits{
             ->pluck('name', 'id');
     }
 
-    public function HasRole($roleName){
-        return $this->Roles->pluck('name')->contains($roleName);
+    public function HasRole($roleName=[]){
+        $roleName=is_array($roleName)? $roleName:[$roleName];
+        return $this->Roles->pluck('name')->contains(function($value,$key) use ($roleName){
+            return in_array($value,$roleName);
+        });
     }
 
     public function UserCan($abilityName){
-        return $this->abilities()->contains($abilityName);
+        $abilities = is_array($abilityName) ? $abilityName : [$abilityName];
+        return $this->abilities()->contains(function ($value, $key) use ($abilities) {
+            return in_array($value, $abilities);
+        });
     }
 }
 ?>

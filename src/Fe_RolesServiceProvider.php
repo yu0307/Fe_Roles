@@ -1,10 +1,15 @@
 <?php
-    namespace feiron\fe_roles;
-    use Illuminate\Support\ServiceProvider;
-    // use Illuminate\Support\Facades\Auth;
+
+namespace feiron\fe_roles;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Route;
+use Illuminate\View\Compilers\BladeCompiler;
+// use feiron\fe_roles\lib\traits\fe_user_traitMixin;
 
 class Fe_RolesServiceProvider extends ServiceProvider{
     public function boot(){
+        $this->registerRouteMacros();
+        
         //locading package route files
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
         //loading migration scripts
@@ -20,11 +25,12 @@ class Fe_RolesServiceProvider extends ServiceProvider{
                 commands\fe_BuildUserClass::class
             ]);
         }
+        // config('auth.providers.' . config('auth.guards.web.provider') . '.model')::mixin(new fe_user_traitMixin);
 
-        // $this->app->bind('\fe_roles\models\fe_User', function ($app) {
-        //     return new \fe_roles\models\fe_User();
+        //registering guards and providers ONLY when Authentication is needed. 
+        // $this->app->resolving('auth', function ($auth) {
+
         // });
-        
 
         //registering and using custom user provider
         // Auth::provider('fe_user_provider', function ($app, array $config) {
@@ -43,7 +49,32 @@ class Fe_RolesServiceProvider extends ServiceProvider{
         // });
     }
 
+    private function registerRouteMacros(){
+
+        \Illuminate\Routing\Route::macro('role', function ($roles = []) {
+            if (!is_array($roles)) {
+                $roles = [$roles];
+            }
+            $roles = implode('|', $roles);
+            $this->middleware("ProtectByRoles:$roles");
+            return $this;
+        });
+
+        \Illuminate\Routing\Route::macro('permission', function ($permission = []) {
+            if (!is_array($permission)) {
+                $permission = [$permission];
+            }
+            $permission = implode('|', $permission);
+            $this->middleware("ProtectBypermission:$permission");
+            return $this;
+        });
+
+        Route::aliasMiddleware('ProtectByRoles', lib\middleware\ProtectByRoles::class);
+        Route::aliasMiddleware('ProtectBypermission', lib\middleware\ProtectBypermission::class);
+    }
+
     public function register(){
+        
         //append package config files to global pool for users to customize
         $this->mergeConfigFrom(
             __DIR__ . '/config/appconfig.php',
@@ -51,13 +82,30 @@ class Fe_RolesServiceProvider extends ServiceProvider{
         );
 
         // instruct the system to use fe_users when authenticating.
-        // config(['auth.guards.fe_Roles' => ['driver'=> 'session','provider'=>'fe_Role_User']]);
+        config(['auth.guards.fe_Roles' => ['driver'=> 'session','provider'=>'fe_Role_User']]);
         config(['auth.guards.web.provider' => 'fe_Role_User']);
         config([
             'auth.providers.fe_Role_User' => [
                 'driver' => 'eloquent',
                 'model' => (config('fe_roles_appconfig.usr_provider') ? config('fe_roles_appconfig.usr_provider') : (\feiron\fe_roles\models\fe_User::class)),
             ]
-        ]);                 
+        ]);
+
+        $this->registerBladeDir();           
+    }
+
+    private function registerBladeDir(){
+        $this->app->afterResolving('blade.compiler', function (BladeCompiler $bladeCompiler) {
+            
+            $bladeCompiler->if('role', function ($roles) {
+                $roles = is_array($roles) ? $roles : explode(',', $roles);
+                return (auth()->check() && auth()->user()->HasRole($roles));
+            });
+
+            $bladeCompiler->if('permission', function ($permissions) {
+                $permissions = is_array($permissions) ? $permissions : explode(',', $permissions);
+                return (auth()->check() && auth()->user()->UserCan($permissions) );
+            });
+        });
     }
 }
