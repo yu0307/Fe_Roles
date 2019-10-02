@@ -69,8 +69,18 @@ class Fe_RolesServiceProvider extends ServiceProvider{
             return $this;
         });
 
+        \Illuminate\Routing\Route::macro('group', function ($groups = []) {
+            if (!is_array($groups)) {
+                $groups = [$groups];
+            }
+            $groups = implode('|', $groups);
+            $this->middleware("ProtectByGroup:$groups");
+            return $this;
+        });
+
         Route::aliasMiddleware('ProtectByRoles', lib\middleware\ProtectByRoles::class);
         Route::aliasMiddleware('ProtectBypermission', lib\middleware\ProtectBypermission::class);
+        Route::aliasMiddleware('ProtectByGroup', lib\middleware\ProtectBypermission::class);
     }
 
     public function register(){
@@ -105,6 +115,11 @@ class Fe_RolesServiceProvider extends ServiceProvider{
             $bladeCompiler->if('permission', function ($permissions) {
                 $permissions = is_array($permissions) ? $permissions : explode(',', $permissions);
                 return (auth()->check() && auth()->user()->UserCan($permissions) );
+            });
+
+            $bladeCompiler->if('group', function ($groups) {
+                $groups = is_array($groups) ? $groups : explode(',', $groups);
+                return (auth()->check() && auth()->user()->FromGroup($groups));
             });
         });
     }
