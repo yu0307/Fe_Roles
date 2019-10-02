@@ -16,15 +16,12 @@ implements AuthenticatableContract
     private $userNameField='id';
     private $userPasswordField = 'password';
     protected $rememberTokenName= 'remember_token';
-    private $usrName;
-    private $usrPass;
-    private $token;
 
     public function __construct()
     {
         $this->userNameField = ((config('fe_roles.appconfig.user_name_field') ?? false) ? config('fe_roles.appconfig.user_name_field') : $this->userNameField);
-        $this->userPasswordField = (config('fe_roles.appconfig.user_password_field') ?? $this->userPasswordField);
-        $this->rememberTokenName = (config('fe_roles.appconfig.user_remember_token_field') ?? $this->rememberTokenName);
+        $this->userPasswordField = ((config('fe_roles.appconfig.user_password_field') ?? false) ? config('fe_roles.appconfig.user_password_field') : $this->userPasswordField);
+        $this->rememberTokenName = ((config('fe_roles.appconfig.user_remember_token_field') ?? false) ? config('fe_roles.appconfig.user_remember_token_field') : $this->rememberTokenName);
     }
 
     /**
@@ -56,26 +53,26 @@ implements AuthenticatableContract
 
     public function getAuthIdentifier()
     {
-        return $this->usrName;
+        return $this[$this->userNameField];
     }
 
     public function getAuthPassword()
     {
-        return $this->usrPass;
+        return $this[$this->userPasswordField];
     }
 
     public function getRememberTokenName()
     {
-        return $this->rememberTokenName;
+        return $this[$this->rememberTokenName];
     }
 
     public function setRememberToken($value)
     {
-        $this->token = $value;
+        $this[$this->rememberTokenName] = $value;
     }
 
     public function getRememberToken()
     {
-        return $this->token;
+        return $this[$this->rememberTokenName];
     }
 }
