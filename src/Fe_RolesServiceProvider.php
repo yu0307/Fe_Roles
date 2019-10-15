@@ -14,12 +14,18 @@ class Fe_RolesServiceProvider extends ServiceProvider{
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
         //loading migration scripts
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        //location package view files
+        $this->loadViewsFrom(__DIR__ . '/resources/views', 'fe_roles');
 
         //set the publishing target path for config files. Run only during update and installation of the package. see composer.json of the package.
         $this->publishes([
             __DIR__ . '/config' => config_path('fe_roles'),
         ],'fe_roles_config');
 
+        $this->publishes([
+            __DIR__ . '/assets' => public_path('feiron/fe_roles'),
+        ], 'fe_roles_assets');
+        
         if ($this->app->runningInConsole()) {
             $this->commands([
                 commands\fe_BuildUserClass::class
