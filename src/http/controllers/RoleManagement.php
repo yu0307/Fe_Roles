@@ -69,11 +69,15 @@ class RoleManagement extends Controller
             }
             $request->validate($rules, $customMessages);
             $message = 'Privilege Created';
-            if($request->filled('RID')){
-                $model::find($request->input('RID'))->update($updates);
+            if($request->filled('RID')){//updating
+                $newrecord=$model::find($request->input('RID'));
+                $newrecord->update($updates);
                 $message = 'Privilege Updated';
-            }else{
-                $model::create($updates);
+            }else{//creating
+                $newrecord=$model::create($updates);
+            }
+            if($request->input('ra_type')!=='Ability' && $request->filled('Abilities')){
+                $newrecord->RoleAbilities()->sync($request->input('Abilities'));
             }
         }else{
             return response()->json(['status'=>'error','message'=>'Privilege type is required']);
@@ -94,7 +98,7 @@ class RoleManagement extends Controller
         if($request->input('ByType')=='Ability'){
             return response()->json(array_merge(fe_abilities::find($ID)->toArray(),['type'=>$request->input('ByType')]));
         }else{
-            return response()->json(array_merge(fe_roles::find($ID)->toArray(),['type'=>$request->input('ByType')]));
+            return response()->json(array_merge(fe_roles::find($ID)->load('RoleAbilities')->toArray(),['type'=>$request->input('ByType')]));
         }
     }
 
