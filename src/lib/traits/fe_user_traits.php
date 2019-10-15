@@ -8,9 +8,14 @@ trait fe_user_traits{
         return $this->morphToMany('\feiron\fe_roles\models\fe_roles', 'target', 'fe_role_targets', 'target_id', 'role_id');
     }
 
+    public function Groups()
+    {
+        return $this->morphToMany('\feiron\fe_roles\models\fe_groups', 'target', 'fe_group_targets', 'target_id', 'group_id');
+    }
+
     public function abilities()
     {
-        return $this->RoleAbilities()->union($this->None_Role_Abilities());
+        return $this->RoleAbilities()->union($this->None_Role_Abilities())->union($this->GroupAbilities());
     }
 
     public function RoleAbilities()
@@ -20,11 +25,24 @@ trait fe_user_traits{
         })->flatten()->pluck('name', 'id');
     }
 
+    public function GroupAbilities(){
+        return $this->Groups->map(function ($group) {
+            return $group->withAbilities();
+        })->flatten()->pluck('name', 'id');
+    }
+
     public function None_Role_Abilities()
     {
         return $this->morphToMany('\feiron\fe_roles\models\fe_abilities', 'target', 'fe_abilities_targets', 'target_id', 'ability_id')
             ->get()
             ->pluck('name', 'id');
+    }
+
+    public function FromGroup($groupIdentifier = []){
+        $groupIdentifier = is_array($groupIdentifier) ? $groupIdentifier : [$groupIdentifier];
+        return $this->Groups->pluck((is_numeric($groupIdentifier)?'id': 'name'))->contains(function ($value, $key) use ($groupIdentifier) {
+            return in_array($value, $groupIdentifier);
+        });
     }
 
     public function HasRole($roleName=[]){

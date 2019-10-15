@@ -14,17 +14,39 @@ class Fe_RolesServiceProvider extends ServiceProvider{
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
         //loading migration scripts
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        //location package view files
+        $this->loadViewsFrom(__DIR__ . '/resources/views', 'fe_roles');
 
         //set the publishing target path for config files. Run only during update and installation of the package. see composer.json of the package.
         $this->publishes([
             __DIR__ . '/config' => config_path('fe_roles'),
         ],'fe_roles_config');
 
+        $this->publishes([
+            __DIR__ . '/assets' => public_path('feiron/fe_roles'),
+        ], 'fe_roles_assets');
+        
         if ($this->app->runningInConsole()) {
             $this->commands([
                 commands\fe_BuildUserClass::class
             ]);
         }
+
+        if (app()->resolved('frameOutlet')) {
+            app()->frameOutlet->bindOutlet('Fe_FrameOutlet', new \feiron\felaraframe\lib\outlet\feOutlet([
+                'view' => 'fe_roles::rolemanagementOutlet',
+                'myName' => 'Role Management',
+                'reousrce' => [
+                    asset('/feiron/felaraframe/plugins/select2/select2.min.css'),
+                    asset('/feiron/felaraframe/plugins/select2/select2.full.min.js'),
+                    asset('/feiron/felaraframe/plugins/datatables/dataTables.min.css'),
+                    asset('/feiron/felaraframe/plugins/datatables/jquery.dataTables.min.js'),
+                    asset('/feiron/fe_roles/js/roleManagementControl.js'),
+                    asset('/feiron/fe_roles/js/roleManagementOutlet.js')
+                ]
+            ]));
+        }
+
         // config('auth.providers.' . config('auth.guards.web.provider') . '.model')::mixin(new fe_user_traitMixin);
 
         //registering guards and providers ONLY when Authentication is needed. 
@@ -69,8 +91,18 @@ class Fe_RolesServiceProvider extends ServiceProvider{
             return $this;
         });
 
+        \Illuminate\Routing\Route::macro('group', function ($groups = []) {
+            if (!is_array($groups)) {
+                $groups = [$groups];
+            }
+            $groups = implode('|', $groups);
+            $this->middleware("ProtectByGroup:$groups");
+            return $this;
+        });
+
         Route::aliasMiddleware('ProtectByRoles', lib\middleware\ProtectByRoles::class);
         Route::aliasMiddleware('ProtectBypermission', lib\middleware\ProtectBypermission::class);
+        Route::aliasMiddleware('ProtectByGroup', lib\middleware\ProtectBypermission::class);
     }
 
     public function register(){
@@ -105,6 +137,11 @@ class Fe_RolesServiceProvider extends ServiceProvider{
             $bladeCompiler->if('permission', function ($permissions) {
                 $permissions = is_array($permissions) ? $permissions : explode(',', $permissions);
                 return (auth()->check() && auth()->user()->UserCan($permissions) );
+            });
+
+            $bladeCompiler->if('group', function ($groups) {
+                $groups = is_array($groups) ? $groups : explode(',', $groups);
+                return (auth()->check() && auth()->user()->FromGroup($groups));
             });
         });
     }

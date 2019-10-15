@@ -12,6 +12,8 @@ class fe_abilities extends Model
     ];
     protected $fillable = ['name', 'description', 'disabled'];
 
+    protected $visible = ['id','name','description'];
+
     public function inRole(){
         return $this->belongsToMany('\feiron\fe_roles\models\fe_roles', 'fe_role_abilities', 'ability_id', 'role_id');
     }
