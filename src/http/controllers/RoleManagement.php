@@ -76,7 +76,7 @@ class RoleManagement extends Controller
             }else{//creating
                 $newrecord=$model::create($updates);
             }
-            if($request->input('ra_type')!=='Ability' && $request->filled('Abilities')){
+            if($request->input('ra_type')!=='Ability'){
                 $newrecord->RoleAbilities()->sync($request->input('Abilities'));
             }
         }else{

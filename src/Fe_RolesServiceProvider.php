@@ -31,6 +31,22 @@ class Fe_RolesServiceProvider extends ServiceProvider{
                 commands\fe_BuildUserClass::class
             ]);
         }
+
+        if (app()->resolved('frameOutlet')) {
+            app()->frameOutlet->bindOutlet('Fe_FrameOutlet', new \feiron\felaraframe\lib\outlet\feOutlet([
+                'view' => 'fe_roles::rolemanagementOutlet',
+                'myName' => 'Role Management',
+                'reousrce' => [
+                    asset('/feiron/felaraframe/plugins/select2/select2.min.css'),
+                    asset('/feiron/felaraframe/plugins/select2/select2.full.min.js'),
+                    asset('/feiron/felaraframe/plugins/datatables/dataTables.min.css'),
+                    asset('/feiron/felaraframe/plugins/datatables/jquery.dataTables.min.js'),
+                    asset('/feiron/fe_roles/js/roleManagementControl.js'),
+                    asset('/feiron/fe_roles/js/roleManagementOutlet.js')
+                ]
+            ]));
+        }
+
         // config('auth.providers.' . config('auth.guards.web.provider') . '.model')::mixin(new fe_user_traitMixin);
 
         //registering guards and providers ONLY when Authentication is needed. 
