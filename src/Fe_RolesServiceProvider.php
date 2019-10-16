@@ -47,6 +47,15 @@ class Fe_RolesServiceProvider extends ServiceProvider{
             ]));
         }
 
+        if (app()->resolved('UserManagementOutlet')) {
+            app()->UserManagementOutlet->bindOutlet('UserManageOutlet', new \feiron\fe_login\lib\outlet\feOutlet([
+                'view'=> 'fe_roles::roleassignmentOutlet',
+                'myName'=>'Privilege Assignment',
+                'reousrce'=>[
+                ]
+            ]));
+        }
+
         // config('auth.providers.' . config('auth.guards.web.provider') . '.model')::mixin(new fe_user_traitMixin);
 
         //registering guards and providers ONLY when Authentication is needed. 
