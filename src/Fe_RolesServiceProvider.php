@@ -52,6 +52,9 @@ class Fe_RolesServiceProvider extends ServiceProvider{
                 'view'=> 'fe_roles::roleassignmentOutlet',
                 'myName'=>'Privilege Assignment',
                 'reousrce'=>[
+                    asset('/feiron/fe_roles/select2/js/select2.full.min.js'),
+                    asset('/feiron/fe_roles/select2/css/select2.min.css'),
+                    asset('/feiron/fe_roles/js/roleAssignment.js')
                 ]
             ]));
         }

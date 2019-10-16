@@ -109,4 +109,13 @@ class RoleManagement extends Controller
         }
         return response()->json($abilities);
     }
+
+    public function ListRoles(Request $request){
+        $roles = ['results' => []];
+        foreach (fe_roles::all() as $ab) {
+            array_push($roles['results'], ['id' => $ab->id, 'text' => $ab->name]);
+        }
+        return response()->json($roles);
+    }
+
 }

@@ -7,6 +7,7 @@ Route::group(['namespace' => 'feiron\fe_roles\http\controllers', 'middleware' =>
     Route::post('roleCRUD/delete/{ID}','RoleManagement@delete')->name('Fe_RoleCRUD_delete')->where('ID', '[0-9]+');
     Route::post('roleCRUD/{ID}','RoleManagement@load')->name('Fe_RoleCRUD_load')->where('ID', '[0-9]+');
     Route::post('roleCRUD/abilities','RoleManagement@ListAbilities')->name('Fe_ListAbilities');
+    Route::post('roleCRUD/roles', 'RoleManagement@ListRoles')->name('Fe_ListRoles');
 });
 
 ?>
