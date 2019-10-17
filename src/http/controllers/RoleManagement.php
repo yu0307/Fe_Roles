@@ -17,7 +17,7 @@ class RoleManagement extends Controller
     public function list(Request $request){
         $datainfo = [];
         if($request->input('ByType')=='Role'){
-            $QueryBuilder=fe_roles::query();
+            $QueryBuilder= fe_roles::with('RoleAbilities');
         }else{
             $QueryBuilder=fe_abilities::query();
         }
@@ -42,7 +42,7 @@ class RoleManagement extends Controller
         
 
         $datainfo['recordsFiltered'] = $QueryBuilder->count();
-        $datainfo['data'] = $QueryBuilder->orderBy($columnName, $columnSortOrder)->paginate($datainfo['rowperpage'])->flatten()->toArray();
+        $datainfo['data'] = $QueryBuilder->orderBy($columnName, $columnSortOrder)->paginate($datainfo['rowperpage'])->makeVisible('RoleAbilities')->flatten()->toArray();
 
         return response()->json($datainfo);
     }
@@ -99,7 +99,7 @@ class RoleManagement extends Controller
         if($request->input('ByType')=='Ability'){
             return response()->json(array_merge(fe_abilities::find($ID)->toArray(),['type'=>$request->input('ByType')]));
         }else{
-            return response()->json(array_merge(fe_roles::find($ID)->load('RoleAbilities')->toArray(),['type'=>$request->input('ByType')]));
+            return response()->json(array_merge(fe_roles::find($ID)->load('RoleAbilities')->makeVisible('RoleAbilities')->toArray(),['type'=>$request->input('ByType')]));
         }
     }
 
