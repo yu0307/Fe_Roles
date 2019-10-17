@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use feiron\fe_roles\models\fe_roles;
 use feiron\fe_roles\models\fe_abilities;
+use feiron\fe_roles\models\fe_User;
 
 class RoleManagement extends Controller
 {
@@ -109,4 +110,32 @@ class RoleManagement extends Controller
         }
         return response()->json($abilities);
     }
+
+    public function ListRoles(Request $request){
+        $roles = ['results' => []];
+        foreach (fe_roles::all() as $ab) {
+            array_push($roles['results'], ['id' => $ab->id, 'text' => $ab->name]);
+        }
+        return response()->json($roles);
+    }
+
+    public function ListUsrAbilities(Request $request, $UID){
+        return response()->json([
+            'Roles'=> fe_User::find($UID)->Roles->load('RoleAbilities')->makeVisible('RoleAbilities')->sortByDesc('rank')->toArray(),
+            'Abilities'=> fe_User::find($UID)->None_Role_Abilities()->diff(fe_User::find(5)->RoleAbilities())->toArray()
+        ]);
+    }
+
+    public function AssignUsr(Request $request, $UID){
+        $message = ['status' => 'success', 'message' => 'Privilege updated.'];
+        if ($request->filled('type')) {
+            if ($request->input('type') === 'abilities') {
+                fe_User::find($UID)->Ability()->sync($request->input('pr_list'));
+            } else {
+                fe_User::find($UID)->Roles()->sync($request->input('pr_list'));
+            }
+        }
+        return response()->json($message);
+    }
+
 }
