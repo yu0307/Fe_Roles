@@ -11,7 +11,7 @@ class fe_roles extends Model
         'disabled' => false,
     ];
     protected $fillable = ['name', 'description','rank', 'disabled'];
-
+    protected $visible = ['id', 'name', 'description','rank'];
     public function RoleAbilities(){
         return $this->belongsToMany('\feiron\fe_roles\models\fe_abilities', 'fe_role_abilities', 'role_id', 'ability_id');
     }

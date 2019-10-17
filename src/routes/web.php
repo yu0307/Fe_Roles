@@ -8,6 +8,9 @@ Route::group(['namespace' => 'feiron\fe_roles\http\controllers', 'middleware' =>
     Route::post('roleCRUD/{ID}','RoleManagement@load')->name('Fe_RoleCRUD_load')->where('ID', '[0-9]+');
     Route::post('roleCRUD/abilities','RoleManagement@ListAbilities')->name('Fe_ListAbilities');
     Route::post('roleCRUD/roles', 'RoleManagement@ListRoles')->name('Fe_ListRoles');
+    Route::post('roleCRUD/GetUserAbilities/{UID}', 'RoleManagement@ListUsrAbilities')->name('Fe_ListUsrAbilities')->where('UID', '[0-9]+');
+    Route::post('roleCRUD/PriAssign/{UID}', 'RoleManagement@AssignUsr')->name('Fe_AssignUsrPrivilege')->where('UID', '[0-9]+');
+
 });
 
 ?>
