@@ -164,6 +164,13 @@ function InitPrDtable(target) {
                         elm.rank = 'N/A';
                     }
                     elm.disabled = elm.disabled ? 'Disabled' : 'Active';
+                    if (!$.isEmptyObject(elm.role_abilities)) {
+                        var abilities = '';
+                        $.each(elm.role_abilities, function (idx, abs) {
+                            abilities += '<span class="badge badge-success m-r-10 mr-2 d-inline-b dis-inline-b">' + abs.name + '</span>';
+                        });
+                        elm.description += '<div class="role_Abilities">' + abilities + '</div>';
+                    }
                     elm.options = '<div class="row m-l-0 m-r-0"><div class="col-md-6 col-sm-12"><button class="btn btn-sm btn-primary btn-edit" data-source=' + elm.id + '>View/Edit</button></div><div class="col-md-6 col-sm-12"><button class="btn btn-sm btn-danger btn-remove" data-source=' + elm.id + '>Remove</button></div></div>';
                 });
 
