@@ -19,6 +19,13 @@ trait fe_user_traits{
         return $this->RoleAbilities()->union($this->None_Role_Abilities())->union($this->GroupAbilities());
     }
 
+    public function AbilitiesByRoles(){
+        return $this->load('Roles')->Roles->map(function ($role) {
+            $role->setAttribute('role_abilities', $role->withAbilities()->flatten()->toArray())->makeVisible('role_abilities');
+            return $role;
+        });
+    }
+
     public function RoleAbilities(){
         return $this->load('Roles')->Roles->map(function ($role) {
             return $role->withAbilities();
@@ -32,9 +39,7 @@ trait fe_user_traits{
     }
 
     public function None_Role_Abilities(){
-        return $this->morphToMany('\feiron\fe_roles\models\fe_abilities', 'target', 'fe_abilities_targets', 'target_id', 'ability_id')
-            ->get()
-            ->pluck('name', 'id');
+        return $this->Ability()->get()->pluck('name', 'id');
     }
 
     public function FromGroup($groupIdentifier = []){
