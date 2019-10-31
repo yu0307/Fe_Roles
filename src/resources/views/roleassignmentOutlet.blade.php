@@ -16,9 +16,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-sm-12">
-            <div class="alert alert-info m-b-5 mb-2" role="alert">
-                <h6 class="m-0">Assign new Role/Abilities from below.</h6>
+        <div class="col-md-6 col-sm-12 p-15 bg-light-dark">
+            <div class="alert alert-dark m-b-5 mb-2" role="alert">
+                <h6 class="m-0">Make changes to Role/Abilities from below.</h6>
             </div>
             <div class="pt-2 p-t-5 icheck-inline t-center text-center">
                 <div class="form-check form-check-inline dis-inline-b d-inline-block m-r-10">

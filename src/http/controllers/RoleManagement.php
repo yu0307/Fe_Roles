@@ -121,8 +121,8 @@ class RoleManagement extends Controller
 
     public function ListUsrAbilities(Request $request, $UID){
         return response()->json([
-            'Roles'=> fe_User::find($UID)->Roles->load('RoleAbilities')->makeVisible('RoleAbilities')->sortByDesc('rank')->toArray(),
-            'Abilities'=> fe_User::find($UID)->None_Role_Abilities()->diff(fe_User::find(5)->RoleAbilities())->toArray()
+            'Roles'=> fe_User::find($UID)->AbilitiesByRoles(),
+            'Abilities'=> fe_User::find($UID)->None_Role_Abilities()->diff(fe_User::find($UID)->RoleAbilities())->toArray()
         ]);
     }
 

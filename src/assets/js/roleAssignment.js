@@ -22,15 +22,24 @@ $(document).ready(function () {
 });
 
 function refreshUsrAbilities(UID) {
+    $('#usrAssign_ByRole').iCheck('check');
     loadUsrAbilities(UID, function (data) {
         var list = '';
+        if (!$.isEmptyObject(data.Abilities)) {
+            list += '<li class="list-group-item list-group-item-action list-group-item-info"><h5 class="m-0">None-Role Abilities</h5></li>';
+            $.each(data.Abilities, function (index, elm) {
+                list += '<li class="list-group-item list_abilities m-b-10 p-10 alert-warning" role="alert" data="' + index + '">' + elm + '</li>';
+            });
+        }
         if (!$.isEmptyObject(data.Roles)) {
             list += '<li class="list-group-item list-group-item-action list-group-item-info"><h5 class="m-0">Role Abilities</h5></li><li id="usrRoleAbilityList" class="list-group-item panel-group panel-accordion dark-accordion">';
             $.each(data.Roles, function (index, elm) {
                 list += '<div class="card panel panel-default">' +
                     '<div class="card-header panel-heading" id="RoleHeading_' + elm.id + '">' +
                     '<h5 class="m-0">' +
-                    '<a class="collapsed" data-toggle="collapse" data-target="#Role_' + elm.id + '" aria-expanded="false" aria-controls="Role_' + elm.id + '">' +
+                    '<a class="collapsed bg-primary usrroles" data-toggle="collapse" data-target="#Role_' + elm.id + '" aria-expanded="false" aria-controls="Role_' + elm.id + '">' +
+                    '<i class="fa fa-chevron-right hidden t-white text-white pull-left"></i>' +
+                    '<i class="fa fa-chevron-down hidden pull-left"></i>' +
                     '<h6 class="m-0 list_Roles" data="' + elm.id + '">' + elm.name + '</h6>' +
                     '</a>' +
                     '</h5>' +
@@ -46,12 +55,7 @@ function refreshUsrAbilities(UID) {
             });
             list += '</li>';
         }
-        if (!$.isEmptyObject(data.Abilities)) {
-            list += '<li class="list-group-item list-group-item-action list-group-item-info"><h5 class="m-0">Additional Abilities</h5></li>';
-            $.each(data.Abilities, function (index, elm) {
-                list += '<li class="list-group-item list_abilities m-b-10 p-10 alert-warning" role="alert" data="' + index + '">' + elm + '</li>';
-            });
-        }
+
         $('#RA_AbilityList ul.list-group:first').html(list);
         UsrpresetSelect();
     });
@@ -102,8 +106,10 @@ function UsrpresetSelect() {
     $('#usrRoleAssignment #Sel_usrAssign').empty().trigger('change');
     var optionlist = [];
     $('#usrRoleAssignment ' + (($('#usrRoleAssignment input[name="usrAssignType"]:checked').val() == 'abilities') ? '.list_abilities' : '.list_Roles')).each(function (idx, elm) {
-        $('#usrRoleAssignment #Sel_usrAssign').append(new Option($(elm).text(), $(elm).attr('data'), true, true)).trigger('change');
-        optionlist.push({ 'id': $(elm).attr('data'), 'text': $(elm).text() });
+        if (($('#usrRoleAssignment #Sel_usrAssign').find('option[value="' + $(elm).attr('data') + '"]').length) <= 0) {
+            $('#usrRoleAssignment #Sel_usrAssign').append(new Option($(elm).text(), $(elm).attr('data'), true, true)).trigger('change');
+            optionlist.push({ 'id': $(elm).attr('data'), 'text': $(elm).text() });
+        }
     });
     $('#usrRoleAssignment #Sel_usrAssign').trigger({
         type: 'select2:select',
