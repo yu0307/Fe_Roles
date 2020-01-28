@@ -163,7 +163,7 @@ Explainations:
 This package provides many useful permission/role management features along with the ability to extend management feature. 
 Permission/Role management area can be access with URL "/rolemanagement/" or route("Fe_RoleManagement").
 
-###**Manage user roles and permission is enabled with the use this package jointly with [LaraFrame](https://github.com/yu0307/LaraFrame) and [Fe_Login](https://github.com/yu0307/Fe_Login).**
+### **Manage user roles and permission is enabled with the use this package jointly with [LaraFrame](https://github.com/yu0307/LaraFrame) and [Fe_Login](https://github.com/yu0307/Fe_Login).**
 
 ## LaraFrame Support
 This package was tailored to work with [LaraFrame](https://github.com/yu0307/LaraFrame).
