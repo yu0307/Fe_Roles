@@ -171,3 +171,9 @@ This package was tailored to work with [LaraFrame](https://github.com/yu0307/Lar
 - Permission/Role information can be jointly managed under user profile.
 - Manage user permission and roles made easy with the framework.
 - Outlets are automatically carried into the framework and making permission/role information related management a breeze. 
+
+## Support us:
+
+If you like this project, Please, please, please consider put a Star⭐️ and tweet about it.
+
+I would love for any forms of supports and they are deeply appreciated👍! Thanks!
