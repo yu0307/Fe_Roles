@@ -18,83 +18,83 @@ Email me for bugs, feature suggestions,pull requests,etc... or even hang out :) 
 1. Please make sure composer is installed on your machine. For installation of composer, please visit [This Link](https://getcomposer.org/doc/00-intro.md)
 2. Once composer is installed properly, please make sure Larave is up to date. 
 3. Navigate to your project root directory and run the following command to install Fe_Roles
-```
-composer require FeIron/Fe_Roles
-```
+    ```
+    composer require FeIron/Fe_Roles
+    ```
 4. This package is going to publish several files to the following path
-- config/fe_roles/
-- public/feiron/fe_roles/
+    - config/fe_roles/
+    - public/feiron/fe_roles/
 5. **Important!** This package is also going to perform several migrations. Please refer to the following changes and make backups of your tables if they are present. 
-```
-Schema to be Created/Modified
-[fe_roles]:
-id bigint(20) UN AI PK 
-name varchar(191) 
-description varchar(191) 
-rank int(11) 
-disabled tinyint(1) 
-created_at timestamp 
-updated_at timestamp
-------------------------------------------
-[fe_abilities]:
-id bigint(20) UN AI PK 
-name varchar(191) 
-description varchar(191) 
-disabled tinyint(1) 
-created_at timestamp 
-updated_at timestamp
-------------------------------------------
-[fe_abilities_targets]:
-ability_id bigint(20) UN PK 
-target_id varchar(36) PK 
-target_type varchar(50) PK 
-disabled tinyint(1) 
-created_at timestamp 
-updated_at timestamp
-------------------------------------------
-[fe_role_targets]:
-role_id bigint(20) UN PK 
-target_id varchar(36) PK 
-target_type varchar(50) PK 
-disabled tinyint(1) 
-created_at timestamp 
-updated_at timestamp
-------------------------------------------
-[fe_role_abilities]:
-role_id bigint(20) UN PK 
-ability_id bigint(20) UN PK 
-disabled tinyint(1) 
-created_at timestamp 
-updated_at timestamp
-------------------------------------------
-[fe_groups]:
-id bigint(20) UN AI PK 
-name varchar(191) 
-description varchar(191) 
-disabled tinyint(1) 
-created_at timestamp 
-updated_at timestamp
-```
+6. Seeding is also performed at the end of the migrations to create some stock permissions and roles. 
+    ```
+    Schema to be Created/Modified
+    [fe_roles]:
+    id bigint(20) UN AI PK 
+    name varchar(191) 
+    description varchar(191) 
+    rank int(11) 
+    disabled tinyint(1) 
+    created_at timestamp 
+    updated_at timestamp
+    ------------------------------------------
+    [fe_abilities]:
+    id bigint(20) UN AI PK 
+    name varchar(191) 
+    description varchar(191) 
+    disabled tinyint(1) 
+    created_at timestamp 
+    updated_at timestamp
+    ------------------------------------------
+    [fe_abilities_targets]:
+    ability_id bigint(20) UN PK 
+    target_id varchar(36) PK 
+    target_type varchar(50) PK 
+    disabled tinyint(1) 
+    created_at timestamp 
+    updated_at timestamp
+    ------------------------------------------
+    [fe_role_targets]:
+    role_id bigint(20) UN PK 
+    target_id varchar(36) PK 
+    target_type varchar(50) PK 
+    disabled tinyint(1) 
+    created_at timestamp 
+    updated_at timestamp
+    ------------------------------------------
+    [fe_role_abilities]:
+    role_id bigint(20) UN PK 
+    ability_id bigint(20) UN PK 
+    disabled tinyint(1) 
+    created_at timestamp 
+    updated_at timestamp
+    ------------------------------------------
+    [fe_groups]:
+    id bigint(20) UN AI PK 
+    name varchar(191) 
+    description varchar(191) 
+    disabled tinyint(1) 
+    created_at timestamp 
+    updated_at timestamp
+    ```
 **Note**: During migration, if you encounter error showing "Specified key was too long"
 This was due to MySQL version being older than 5.7.7, if you don't wish to upgrade MySQL server, consider the following.
 
 Within your AppServiceProvider 
-```
-use Illuminate\Support\Facades\Schema;
+    ```
+    use Illuminate\Support\Facades\Schema;
 
-/**
- * Bootstrap any application services.
- *
- * @return void
- */
+    /**
+    * Bootstrap any application services.
+    *
+    * @return void
+    */
 
-public function boot()
-{
-    Schema::defaultStringLength(191);
-}
-```
+    public function boot()
+    {
+        Schema::defaultStringLength(191);
+    }
+    ```
 Further reading on this could be found at [This Link](https://laravel.com/docs/master/migrations#creating-indexes)
-6. Seeding is also performed at the end of the migrations to create some stock permissions and roles. 
 
 
 ### Basic Usage:
