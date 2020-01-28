@@ -1,6 +1,7 @@
 ## Welcome to Fe_Roles Repo
 ### **Recommended to be used with [LaraFrame](https://github.com/yu0307/LaraFrame)**
-
+### Let's collaborate!
+Email me for bugs, feature suggestions,pull requests,etc... or even hang out :) [yu0307@gmail.com](mailto:yu0307@gmail.com)
 ### This package allows users to 
 - Protect route by Permission or Role
 - Protect contents by Permission or Role
@@ -158,3 +159,15 @@ Explainations:
 | user_password_field | string | Table field name used to store user passwords. | false |
 | user_remember_token_field | string | Table field name used to store user expiration tokens. | false |
 
+### Permission/Role Management Feature
+This package provides many useful permission/role management features along with the ability to extend management feature. 
+Permission/Role management area can be access with URL "/rolemanagement/" or route("Fe_RoleManagement").
+
+###**Manage user roles and permission is enabled with the use this package jointly with [LaraFrame](https://github.com/yu0307/LaraFrame) and [Fe_Login](https://github.com/yu0307/Fe_Login).**
+
+## LaraFrame Support
+This package was tailored to work with [LaraFrame](https://github.com/yu0307/LaraFrame).
+- Permission/Role management is easily done through the shared control panel/interface provided by the framework. 
+- Permission/Role information can be jointly managed under user profile.
+- Manage user permission and roles made easy with the framework.
+- Outlets are automatically carried into the framework and making permission/role information related management a breeze. 
