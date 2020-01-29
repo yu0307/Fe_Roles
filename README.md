@@ -29,7 +29,7 @@ Email me for bugs, feature suggestions,pull requests,etc... or even hang out :) 
 
     ```
         php artisan vendor:publish --provider="feiron\fe_roles\Fe_RolesServiceProvider" --force
-        php artisan migrate --path="feiron\fe_roles\database\migrations\"
+        php artisan migrate --path="/vendor/feiron/fe_roles/src/database/migrations/"
         php artisan db:seed --class=\feiron\fe_roles\database\seeder\RoleSeeder
         php artisan Build:BuildUserClass
     ```
