@@ -125,15 +125,17 @@ class Fe_RolesServiceProvider extends ServiceProvider{
             'fe_roles_appconfig'
         );
 
-        // instruct the system to use fe_users when authenticating.
-        config(['auth.guards.fe_Roles' => ['driver'=> 'session','provider'=>'fe_Role_User']]);
-        config(['auth.guards.web.provider' => 'fe_Role_User']);
-        config([
-            'auth.providers.fe_Role_User' => [
-                'driver' => 'eloquent',
-                'model' => (config('fe_roles_appconfig.usr_provider') ? config('fe_roles_appconfig.usr_provider') : (\feiron\fe_roles\models\fe_User::class)),
-            ]
-        ]);
+        if (!app()->runningInConsole()) {
+            // instruct the system to use fe_users when authenticating.
+            config(['auth.guards.fe_Roles' => ['driver' => 'session', 'provider' => 'fe_Role_User']]);
+            config(['auth.guards.web.provider' => 'fe_Role_User']);
+            config([
+                'auth.providers.fe_Role_User' => [
+                    'driver' => 'eloquent',
+                    'model' => (config('fe_roles_appconfig.usr_provider') ? config('fe_roles_appconfig.usr_provider') : (\feiron\fe_roles\models\fe_User::class)),
+                ]
+            ]);
+        }
 
         $this->registerBladeDir();           
     }
