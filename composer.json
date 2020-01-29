@@ -29,13 +29,5 @@
                 "feiron\\fe_roles\\Fe_RolesServiceProvider"
             ]
         }
-    },
-    "scripts": {
-        "post-package-install": [
-            "php ../../../artisan vendor:publish --provider=\"\\feiron\\fe_roles\\Fe_RolesServiceProvider\"",
-            "php ../../../artisan migrate --path=\"\\feiron\\fe_roles\\database\\migrations\"",
-            "php ../../../artisan db:seed --class=\\feiron\\fe_roles\\database\\seeder\\RoleSeeder",
-            "php ../../../artisan Build:BuildUserClass"
-        ]
     }
 }

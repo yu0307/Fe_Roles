@@ -25,7 +25,16 @@ Email me for bugs, feature suggestions,pull requests,etc... or even hang out :) 
     - config/fe_roles/
     - public/feiron/fe_roles/
 5. **Important!** This package is also going to perform several migrations. Please refer to the following changes and make backups of your tables if they are present. 
-6. Seeding is also performed at the end of the migrations to create some stock permissions and roles. 
+6. **Since I can't seem to have package auto publish assets**. make sure you run the following command at the end and every updates of this package. 
+
+    ```
+        php artisan vendor:publish --provider="feiron\fe_roles\Fe_RolesServiceProvider" --force
+        php artisan migrate --path="feiron\fe_roles\database\migrations\"
+        php artisan db:seed --class=\feiron\fe_roles\database\seeder\RoleSeeder
+        php artisan Build:BuildUserClass
+    ```
+
+7. Seeding is also performed at the end of the migrations to create some stock permissions and roles. 
     ```
     Schema to be Created/Modified
     [fe_roles]:
