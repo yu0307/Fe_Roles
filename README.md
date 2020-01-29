@@ -34,6 +34,10 @@ Email me for bugs, feature suggestions,pull requests,etc... or even hang out :) 
         php artisan Build:BuildUserClass
     ```
 
+    **Important!** Command "Build:BuildUserClass" is ran to modify the user proivider class needed for the system. It modified the class(feiron\fe_roles\models\fe_User.php) to inherit from the user provider class the system is currently using. This package will force the system to use class(feiron\fe_roles\models\fe_User.php), therefore, we need to have the class inherit from the current user class. 
+
+    You can also instruct the system to use other user provider classes by making changes to the config file (/config/fe_roles/appconfig.php) and modify the (target_user_model) parameter. 
+
 7. Seeding is also performed at the end of the migrations to create some stock permissions and roles. 
     ```
     Schema to be Created/Modified
@@ -107,6 +111,8 @@ Further reading on this could be found at [This Link](https://laravel.com/docs/m
 
 
 ### Basic Usage:
+
+**note:** You can create your own user provider class by either inherit from \feiron\fe_roles\models\fe_User.php or simply use trait "feiron\fe_roles\lib\traits\fe_user_traits" in your current user provider class.
 
 1. Protecting Routes:
     **note** multiple role/permission names can be seperated by "|". 
