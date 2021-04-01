@@ -8,7 +8,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use feiron\fe_roles\lib\traits\fe_user_traits;
 
 class fe_User 
-extends  \feiron\fe_login\models\fe_users
+extends   \feiron\fe_login\models\fe_users
 implements AuthenticatableContract
 {
     use fe_user_traits;

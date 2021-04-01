@@ -36,12 +36,11 @@ class Fe_RolesServiceProvider extends ServiceProvider{
             app()->frameOutlet->bindOutlet('Fe_FrameOutlet', new \feiron\felaraframe\lib\outlet\feOutlet([
                 'view' => 'fe_roles::rolemanagementOutlet',
                 'myName' => 'Role Management',
-                'reousrce' => [
-                    asset('/feiron/felaraframe/plugins/select2/select2.min.css'),
-                    asset('/feiron/felaraframe/plugins/select2/select2.full.min.js'),
-                    asset('/feiron/felaraframe/plugins/datatables/dataTables.min.css'),
-                    asset('/feiron/felaraframe/plugins/datatables/jquery.dataTables.min.js'),
+                'resource' => [
                     asset('/feiron/fe_roles/js/roleManagementControl.js'),
+                    asset('/feiron/fe_roles/Choices/scripts/choices.min.js'),
+                    asset('/feiron/fe_roles/Choices/styles/choices.min.css'),
+                    asset('/feiron/fe_roles/css/roleManagement.css'),
                     asset('/feiron/fe_roles/js/roleManagementOutlet.js')
                 ]
             ]));
@@ -51,10 +50,8 @@ class Fe_RolesServiceProvider extends ServiceProvider{
             app()->UserManagementOutlet->bindOutlet('UserManageOutlet', new \feiron\fe_login\lib\outlet\feOutlet([
                 'view'=> 'fe_roles::roleassignmentOutlet',
                 'myName'=>'Privilege Assignment',
-                'reousrce'=>[
-                    asset('/feiron/fe_roles/select2/js/select2.full.min.js'),
-                    asset('/feiron/fe_roles/select2/css/select2.min.css'),
-                    asset('/feiron/fe_roles/js/roleAssignment.js')
+                'resource'=>[
+                    // asset('/feiron/fe_roles/js/roleAssignment.js')
                 ]
             ]));
         }
