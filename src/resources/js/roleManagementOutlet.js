@@ -2,7 +2,7 @@ window.usrRoleManager = require('./roleManagementControl').default;
 
 window.ready(()=>{
     window.usrRoleManager.InitUsrRoleDtable('pr_dt_table');
-    window.usrRoleManager.InitUsrAbilityList(document.getElementById('role_abilities'));
+    window.usrRoleManager.InitUsrAbilityList(document.getElementById('role_abilities'),document.getElementById('pr_dt_table').getAttribute('data_target'));
     document.getElementById('control_CRUD').addEventListener('hidden.bs.modal',function(){
         document.querySelectorAll('#control_CRUD .modal-body,#control_CRUD .modal-content').forEach((elm)=>{
             elm.classList.remove('overflow-visible');
@@ -94,6 +94,11 @@ window.ready(()=>{
                     });
                 }
             });
+        }
+    });
+    document.querySelector('#Role_Management_CRUD .prev-list').addEventListener('list-updated',(e)=>{
+        if(e.detail && e.detail.prevType=='Ability'){
+            window.usrRoleManager.fetchAbilities();
         }
     });
 });

@@ -12,7 +12,7 @@
                 <label class="form-check-label" for="ByRole">By Roles</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="ListType" id="ByAbility" value="Ability" checked>
+                <input class="form-check-input" type="radio" name="ListType" id="ByAbility" value="Ability" checked="checked">
                 <label class="form-check-label" for="ByAbility">By Abilities</label>
             </div>
         </div>
@@ -76,7 +76,7 @@
     <hr>
     <label for="role_abilities " style="width:100%">
         Assigned Role Associated Abilities
-        <select class="form-control role_abilities role-control form-select" id="role_abilities" multiple style="width:100%"></select>
+        <select class="form-control role_abilities prev-list role-control form-select" id="role_abilities" multiple style="width:100%"></select>
     </label>
 </div>
 @endsection

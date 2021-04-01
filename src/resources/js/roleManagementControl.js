@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Tabulator from 'tabulator-tables';
+var abilityCtrl=require('./abilityList').default;
 var UsrRoleTable;
 var abilityList;
 var ajaxTarget;
@@ -72,37 +73,18 @@ function clearWorkingArea(target){
         elm.value=(elm.querySelector('option[default]')||{value:""}).value;
     });
 }
-function InitUsrAbilityList(target){
-    this.abilityList=new Choices(target,{
-        removeItemButton:true,
-        duplicateItemsAllowed:false,
-        paste:false,
-        placeholderValue:'Available abilities...'
-    });
-    this.fetchAbilities();
+function InitUsrAbilityList(target,url){
+    this.abilityList=abilityCtrl.InitPrevList(target,url);
 }
 
 function fetchAbilities(){
-    axios.post(this.ajaxTarget + '/abilities')
-    .then((resp)=>{
-        if(resp.data){
-            this.abilityList.clearStore().clearChoices().setChoices(
-                (resp.data.results||[]),
-                'id',
-                'text',
-                true,
-              );
-        }
-    })
-    .catch((error)=>{
-        if(window.frameUtil) window.frameUtil.Notify(error);
-        else console.log(error);
-    });
+    abilityCtrl.fetchAbilities();
 }
 
 function pr_remove(target,type, callback=null) {
     axios.post(this.ajaxTarget+'/delete/' + target,{ByType:type})
     .then((resp)=>{
+        this.dispatchUpdateEvent(type);
         if (typeof (callback) == "function") callback(resp.data);
     }).catch((err)=>{
         if(window.frameUtil) window.frameUtil.Notify(err);
@@ -113,7 +95,7 @@ function pr_remove(target,type, callback=null) {
 function pr_saveChange(type, data={}, callback=null) {
     axios.post(this.ajaxTarget+'/save',data)
     .then((resp)=>{
-        if(type=='Ability') this.fetchAbilities();
+       this.dispatchUpdateEvent(type);
         if (typeof (callback) == "function") callback(resp.data);
     }).catch((err)=>{
         if(window.frameUtil) window.frameUtil.Notify(err);
@@ -138,6 +120,12 @@ function pr_load(target,type, callback) {
     });
 }
 
+function dispatchUpdateEvent(type){
+    document.querySelectorAll('.prev-list').forEach((elm)=>{
+        elm.dispatchEvent(new CustomEvent('list-updated',{detail:{prevType:type}}));
+    });
+}
+
 export default{
     InitUsrRoleDtable,
     InitUsrAbilityList,
@@ -147,5 +135,6 @@ export default{
     fetchAbilities,
     pr_remove,
     pr_saveChange,
-    pr_load
+    pr_load,
+    dispatchUpdateEvent
 }

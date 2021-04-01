@@ -38,7 +38,6 @@ class Fe_RolesServiceProvider extends ServiceProvider{
                 'myName' => 'Role Management',
                 'resource' => [
                     asset('/feiron/fe_roles/js/roleManagementControl.js'),
-                    asset('/feiron/fe_roles/Choices/scripts/choices.min.js'),
                     asset('/feiron/fe_roles/Choices/styles/choices.min.css'),
                     asset('/feiron/fe_roles/css/roleManagement.css'),
                     asset('/feiron/fe_roles/js/roleManagementOutlet.js')
@@ -51,7 +50,9 @@ class Fe_RolesServiceProvider extends ServiceProvider{
                 'view'=> 'fe_roles::roleassignmentOutlet',
                 'myName'=>'Privilege Assignment',
                 'resource'=>[
-                    // asset('/feiron/fe_roles/js/roleAssignment.js')
+                    asset('/feiron/fe_roles/Choices/styles/choices.min.css'),
+                    asset('/feiron/fe_roles/css/roleManagement.css'),
+                    asset('/feiron/fe_roles/js/roleAssignment.js')
                 ]
             ]));
         }
