@@ -15,9 +15,9 @@ class Fe_role_targets_seeder extends Seeder
     public function run()
     {
         DB::table('fe_role_targets')->insert([
-            ['role_id' => rand(1, 4), 'target_id' => 1, 'target_type'=>'user'],
-            ['role_id' => rand(1, 4), 'target_id' => 2, 'target_type'=>'user'],
-            ['role_id' => rand(1, 4), 'target_id' => 3, 'target_type'=>'user'],
+            ['role_id' => rand(1, 4), 'target_id' => 1, 'target_type'=>'feiron\fe_roles\models\fe_User'],
+            ['role_id' => rand(1, 4), 'target_id' => 2, 'target_type'=>'feiron\fe_roles\models\fe_User'],
+            ['role_id' => rand(1, 4), 'target_id' => 3, 'target_type'=>'feiron\fe_roles\models\fe_User'],
         ]);
 
     }

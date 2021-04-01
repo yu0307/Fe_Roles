@@ -11,6 +11,7 @@ Email me for bugs, feature suggestions,pull requests,etc... or even hang out :) 
 
 ### Dependencies:
 - Composer [Visit vendor](https://getcomposer.org/)
+- PHP 7+
 - Laravel 5+
 
 ### Installation:
@@ -176,7 +177,6 @@ Explainations:
 
 ### Permission/Role Management Feature
 This package provides many useful permission/role management features along with the ability to extend management feature. 
-Permission/Role management area can be access with URL "/rolemanagement/" or route("Fe_RoleManagement").
 
 ### **Manage user roles and permission is enabled with the use this package jointly with [LaraFrame](https://github.com/yu0307/LaraFrame) and [Fe_Login](https://github.com/yu0307/Fe_Login).**
 

@@ -10,10 +10,6 @@ use feiron\fe_roles\models\fe_User;
 
 class RoleManagement extends Controller
 {
-    public function show(){
-        return view('fe_roles::rolemanagementwin');
-    }
-
     public function list(Request $request){
         $datainfo = [];
         if($request->input('ByType')=='Role'){
@@ -21,20 +17,20 @@ class RoleManagement extends Controller
         }else{
             $QueryBuilder=fe_abilities::query();
         }
-        $columnIndex = $request->input('order')[0]['column']; // Column index
-        $columnName = $request->input('columns')[$columnIndex]['data']; // Column name
-        $columnSortOrder = $request->input('order')[0]['dir']; // asc or desc
+        $columnName = $request->has('sorters')?$request->input('sorters')[0]['field']:'name'; // Column name
+        $columnSortOrder = $request->has('sorters')?$request->input('sorters')[0]['dir']:'asc'; // asc or desc
 
         $datainfo['recordsTotal'] = $QueryBuilder->count();
-        $datainfo['draw'] = $request->input('draw');
+        $datainfo['rowperpage'] = $request->input('size');
+        $datainfo['last_page'] = ceil($QueryBuilder->count()/$datainfo['rowperpage']);
         $datainfo['page'] = $request->input('page');
-        $datainfo['rowperpage'] = $request->input('length');
+
         // Building column specific search--------------------------
         $QueryBuilder->where(
             function ($query) use ($request) {
-                foreach ($request->input('columns') as $column) {
-                    if (isset($column['search']['value'])) {
-                        $query->where($column['data'],'like', ('%'.$column['search']['value'].'%'));
+                foreach ($request->input('filters')??[] as $column) {
+                    if (isset($column['value'])) {
+                        $query->where($column['field'],'like', ('%'.$column['value'].'%'));
                     }
                 }
             }
