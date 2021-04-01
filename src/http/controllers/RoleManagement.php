@@ -10,10 +10,6 @@ use feiron\fe_roles\models\fe_User;
 
 class RoleManagement extends Controller
 {
-    public function show(){
-        return view('fe_roles::rolemanagementwin');
-    }
-
     public function list(Request $request){
         $datainfo = [];
         if($request->input('ByType')=='Role'){

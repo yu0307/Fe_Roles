@@ -1,10 +1,10 @@
-<div id="usrRoleAssignment" class="container-fluid" data_target="{{route('Fe_RoleCRUD')}}">
+<div id="usrRoleAssignment" class="container-fluid d-none" data_target="{{route('Fe_RoleCRUD')}}">
     <div class="row">
         <div class="col-md-6 col-sm-12 h-100" id="RA_AbilityList">
             <h6 class="alert alert-dark p-2">Abilities currently assigned to the user</h6>
             <div class="card h-100">
                 <div class="card-body p-0">
-                    <div class="d-flex align-items-center flex-column position-absolute w-100 start-0 loading">
+                    <div class="d-flex align-items-center flex-column position-absolute w-100 start-0 pt-4 loading">
                         <i class="fas fa-circle-notch fa-spin fa-3x fa-fw"></i>
                         <h5>Loading...</h5>
                     </div>

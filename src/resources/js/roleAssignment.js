@@ -32,12 +32,14 @@ window.ready(()=>{
             });
         });
         elm.addEventListener('usrInfoLoaded',(e)=>{
+            elm.querySelector('#usrRoleAssignment').classList.remove('d-none');
             refreshUsrAbilities(e.detail.usrData.id);
         });
         elm.addEventListener('hidden.bs.modal',function(){
             elm.querySelectorAll('.modal-body,.modal-content').forEach((elm)=>{
                 elm.classList.remove('overflow-visible');
-            })
+            });
+            elm.querySelector('#usrRoleAssignment').classList.add('d-none');
         });
         
     })
